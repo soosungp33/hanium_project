@@ -13,3 +13,5 @@
 
 파이참에서 소스 git에 올리는 방법
 [블로그](https://m.blog.naver.com/PostView.nhn?blogId=complusblog&logNo=221171931637&proxyReferer=https:%2F%2Fwww.google.com%2F)
+
+github 마크다운 사용법 [블로그](https://gist.github.com/ihoneymon/652be052a0727ad59601)
