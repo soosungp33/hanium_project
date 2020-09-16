@@ -1,2 +1,12 @@
-# hanium_project
-Sleeping Alert Using Raspberry pie
+# 한이음 프로젝트
+라즈베리파이를 활용한 졸음운전 경보기
+* opencv, dlib
+ * 눈 깜빡임 감지
+ * 차선 인식
+* 아두이노
+ * Co2 농도 측정
+ * 경보음
+ * 비상등
+* 라즈베리파이
+ * 
+ * 데이터를 받아서 아두이노와 연동
