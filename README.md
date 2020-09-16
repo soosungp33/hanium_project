@@ -12,4 +12,4 @@
   * 데이터를 받아서 아두이노와 연동
 
 파이참에서 소스 git에 올리는 방법
-https://m.blog.naver.com/PostView.nhn?blogId=complusblog&logNo=221171931637&proxyReferer=https:%2F%2Fwww.google.com%2F
+[블로그] https://m.blog.naver.com/PostView.nhn?blogId=complusblog&logNo=221171931637&proxyReferer=https:%2F%2Fwww.google.com%2F
