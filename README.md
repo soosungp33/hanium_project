@@ -1,5 +1,6 @@
 # 한이음 프로젝트
 [프로젝트 설명](https://velog.io/@soosungp33/%EC%A1%B8%EC%9D%8C-%EC%9A%B4%EC%A0%84-%EA%B2%BD%EB%B3%B4%EA%B8%B0)
+
 라즈베리파이를 활용한 졸음운전 경보기
 * opencv, dlib
   * 눈 깜빡임 감지
