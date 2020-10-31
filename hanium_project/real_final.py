@@ -12,137 +12,7 @@ import dlib
 import cv2
 import pyfirmata
 
-# int led=9;
-# int val=0;
-# void setup()
-# {
-#   Serial.begin(9600);
-#   pinMode(led,OUTPUT);
-# }
-#
-# void loop(){
-#   //digitalWrite(led,LOW);
-#   if(Serial.available()){
-#     val=Serial.parseInt();
-#     Serial.println("11");
-#     digitalWrite(led,HIGH);
-#     delay(2000);
-#   }
-#   else{
-#     Serial.println("22");
-#     digitalWrite(led,LOW);
-#   }
-#   delay(50);
-# }
-# int led=7;
-# int val=0;
-# char ddd;
-# void setup()
-# {
-#   Serial.begin(9600);
-#   pinMode(led,OUTPUT);
-# }
-#
-# void loop(){
-#   //digitalWrite(led,LOW);
-#   if(Serial.available()){
-#     val=Serial.parseInt();
-#     ddd=Serial.read();
-#     Serial.println(ddd);
-#     analogWrite(led,255);
-#     delay(2000);
-#   }
-#   else{
-#     Serial.println("22");
-#     analogWrite(led,0);
-#   }
-#   delay(50);
-# }
-#파란불 빨간불
-# int green=7;
-# int red=9;
-# int val=0;
-#
-# void setup()
-# {
-#   Serial.begin(9600);
-#   pinMode(red,OUTPUT);
-#   pinMode(green,OUTPUT);
-# }
-#
-# void loop(){
-#   //digitalWrite(led,LOW);
-#   if(Serial.available()){
-#     val=Serial.parseInt();
-#     Serial.println("11");
-#     analogWrite(red,255);
-#     analogWrite(green,255);
-#     delay(2000);
-#   }
-#   else{
-#     Serial.println("22");
-#     analogWrite(green,0);
-#     analogWrite(red,0);
-#   }
-#   delay(50);
-# }
-# int green=7;
-# int red=9;
-# int val=0;
-# int speakerpin = 12;
-#
-# void setup()
-# {
-#   Serial.begin(9600);
-#   pinMode(red,OUTPUT);
-#   pinMode(green,OUTPUT);
-# }
-#
-# void loop(){
-#   //digitalWrite(led,LOW);
-#   if(Serial.available()){
-#     val=Serial.parseInt();
-#     Serial.println("11");
-#     digitalWrite(red,HIGH);
-#     digitalWrite(green,HIGH);
-#     //tone(speakerpin, 500, 1000);
-#     delay(2000);
-#   }
-#   else{
-#     Serial.println("22");
-#     digitalWrite(green,LOW);
-#     digitalWrite(red,LOW);
-#   }
-#   delay(50);
-# }
-# int red=9;
-# int val=0;
-#
-# void setup()
-# {
-#   Serial.begin(9600);
-#   pinMode(red,OUTPUT);
-# }
-#
-# void loop(){
-#   //digitalWrite(led,LOW);
-#   if(Serial.available()){
-#     val=Serial.parseInt();
-#     Serial.println("11");
-#     digitalWrite(red,HIGH);
-#     tone(red, 500, 1000);
-#     delay(2000);
-#   }
-#   else{
-#     Serial.println("22");
-#     digitalWrite(red,LOW);
-#   }
-#   delay(50);
-# }
-
-  # include "CO2Sensor.h"
-
-# ---------------------------------눈 깜빡임---------------------------------------
+# ---------------------------------eyes---------------------------------------
 def euclidean_dist(ptA, ptB):
     # compute and return the euclidean distance between the two points
     return np.linalg.norm(ptA - ptB)
@@ -203,11 +73,11 @@ print("[INFO] starting video stream thread...")
 # vs = VideoStream(src=0).start()
 vs = VideoStream(usePiCamera=True).start()
 time.sleep(1.0)
-# ------------------------------------눈 깜빡임 끝----------------------------------------
+# ----------------------------------------------------------------------------
 
 
 
-# ------------------------------------차선 인식-------------------------------------------
+# ------------------------------------car-------------------------------------------
 def region_of_interest(img, vertices):
     mask = np.zeros_like(img)
     #channel_count = img.shape[2]
@@ -217,7 +87,7 @@ def region_of_interest(img, vertices):
     return masked_image
 
 
-def get_fitline(img, f_lines):  # 대표선 구하기
+def get_fitline(img, f_lines):  # Finding the representative Line
     try:
         lines = np.squeeze(f_lines)
         print("ch")
@@ -227,7 +97,7 @@ def get_fitline(img, f_lines):  # 대표선 구하기
             rows, cols = img.shape[:2]
             output = cv2.fitLine(lines, cv2.DIST_L2, 0, 0.01, 0.01)
             vx, vy, x, y = output[0], output[1], output[2], output[3]
-            # 차선변경 에러
+            # lane change error
 
             x1, y1 = int(((img.shape[0] - 1) - y) / vy * vx + x), img.shape[0] - 1
             x2, y2 = int(((img.shape[0] / 2 + 70) - y) / vy * vx + x), int(img.shape[0] / 2 + 70)
@@ -236,10 +106,10 @@ def get_fitline(img, f_lines):  # 대표선 구하기
 
             return result
     except:
-        # count 증가 시켜주기
+        # count up
         return None
 
-def draw_fit_line(img, lines, color=[255, 0, 0], thickness=10):  # 대표선 그리기
+def draw_fit_line(img, lines, color=[255, 0, 0], thickness=10):  # Draw a representative line
     cv2.line(img, (lines[0], lines[1]), (lines[2], lines[3]), color, thickness)
 
 def drow_the_lines(img, lines):
@@ -249,11 +119,6 @@ def drow_the_lines(img, lines):
         for x1, y1, x2, y2 in line:
             cv2.line(img, (x1,y1), (x2,y2), (0, 255, 0), thickness=10)
 
-    # img = cv2.addWeighted(img, 0.8, blank_image, 1, 0.0)
-    # return img
-
-# = cv2.imread('road.jpg')
-#image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 def line_intersection(line1, line2):
     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
@@ -313,32 +178,27 @@ def process(image):
 
 
     line_arr = np.squeeze(lines)
-    # print(line_arr)
 
-    # 기울기 구하기
+    # Obtaining slope
     slope_degree = (np.arctan2(line_arr[:, 1] - line_arr[:, 3], line_arr[:, 0] - line_arr[:, 2]) * 180) / np.pi
 
-    # 수평 기울기 제한
+    # horizontal slope limit
     line_arr = line_arr[np.abs(slope_degree) < 160]
     slope_degree = slope_degree[np.abs(slope_degree) < 160]
-    # 수직 기울기 제한
+    # vertical slope limit
     line_arr = line_arr[np.abs(slope_degree) > 95]
     slope_degree = slope_degree[np.abs(slope_degree) > 95]
-    # 필터링된 직선 버리기
+    # Filtered straight line throwout
     L_lines, R_lines = line_arr[(slope_degree > 0), :], line_arr[(slope_degree < 0), :]
     temp = np.zeros((image.shape[0], image.shape[1], 3), dtype=np.uint8)
     L_lines, R_lines = L_lines[:, None], R_lines[:, None]
 
-    # 대표선 만들기
+    # create a representative line
     left_fit_line = get_fitline(temp, L_lines)
     print('left', left_fit_line)
     right_fit_line = get_fitline(temp, R_lines)
     print('right', right_fit_line)
-    # 직선 그리기
-    # drow_the_lines(temp, L_lines)
-    # drow_the_lines(temp, R_lines)
 
-    #
     if left_fit_line != None and right_fit_line != None:
         print(right_fit_line[0] - left_fit_line[0])
 
@@ -354,18 +214,12 @@ def process(image):
         D = [right_fit_line[2], right_fit_line[3]]
         intersection = line_intersection((A, B), (C, D))
 
-        # pts = vertices.reshape((-1, 1, 2))
-
         car_mask = np.zeros_like(image)
-        # channel_count = img.shape[2]
         match_mask_color = 255
         cv2.fillPoly(car_mask, [np.array([(intersection[0], 50), A, C],np.int32)], match_mask_color)
 
         car_masked_image = cv2.bitwise_and(image, car_mask)
-        # cv2.imshow('ma', car_masked_image)
         car_roi_gray = cv2.cvtColor(car_masked_image, cv2.COLOR_RGB2GRAY)
-        # car_roi_color = car_masked_image
-        # cv2.imshow('gra', car_roi_gray)
         cars = car_cascade.detectMultiScale(car_roi_gray, 1.4, 1,minSize=(80, 80))
 
         for (x, y, w, h) in cars:
@@ -404,14 +258,13 @@ cascade_src = 'cars.xml'
 cap = cv2.VideoCapture('change.avi')
 car_cascade = cv2.CascadeClassifier(cascade_src)
 
-# ------------------------------------차선 인식 끝----------------------------------------
+# ----------------------------------------------------------------------------
 
 
-# ------------------------------------화면에 나타내기--------------------------------------
+# -------------------------------------------------------------------------
 # loop over frames from the video stream
-# while True:
 while (cap.isOpened()):
-    # -------------------------눈 깜빡임 부분------------------------------
+    # -------------------------eyes------------------------------
     # grab the frame from the threaded video file stream, resize
     # it, and convert it to grayscale channels
     frame = vs.read()
@@ -486,7 +339,7 @@ while (cap.isOpened()):
     if key == ord("q"):
         break
 
-    # -------------------------------차선 인식 부분--------------------------------
+    # -------------------------------car--------------------------------
     ret, frame = cap.read()
 
     if (type(frame) == type(None)):
