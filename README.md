@@ -1,4 +1,4 @@
-[프로젝트 설명](https://velog.io/@soosungp33/%EC%A1%B8%EC%9D%8C-%EC%9A%B4%EC%A0%84-%EA%B2%BD%EB%B3%B4%EA%B8%B0)
+[velog](https://velog.io/@soosungp33/%EC%A1%B8%EC%9D%8C-%EC%9A%B4%EC%A0%84-%EA%B2%BD%EB%B3%B4%EA%B8%B0)
 ---
 # 📕 졸음운전 경보기
 📢 한이음에서 개최한 공모전 프로젝트이다.
