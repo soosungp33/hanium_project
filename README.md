@@ -1,9 +1,7 @@
-# 한이음 프로젝트
 [프로젝트 설명](https://velog.io/@soosungp33/%EC%A1%B8%EC%9D%8C-%EC%9A%B4%EC%A0%84-%EA%B2%BD%EB%B3%B4%EA%B8%B0)
 ---
 # 📕 졸음운전 경보기
 📢 한이음에서 개최한 공모전 프로젝트이다.
-📚 코드는 [Github](https://github.com/soosungp33/hanium_project)에서 참고!
 ### 📖 작품 소개
 운전자의 눈을 중점으로 해서 졸음을 인식하고 다양한 아두이노 기기를 이용해 졸음 중임을 인식한다. 이로써 운전자의 졸음 운전을 방지할 수 있는 프로젝트이다.
 
